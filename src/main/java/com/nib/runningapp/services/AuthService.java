@@ -1,7 +1,5 @@
 package com.nib.runningapp.services;
 
-import com.nib.runningapp.dtos.UserDTO;
-
 import java.util.Map;
 
 public interface AuthService {
