@@ -145,8 +145,8 @@
                 <configuration>
                     <excludes>
                         <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
+                            <groupId>org.project-lombok</groupId>
+                            <artifactId>lombok</artifactId>d
                         </exclude>
                     </excludes>
                 </configuration>

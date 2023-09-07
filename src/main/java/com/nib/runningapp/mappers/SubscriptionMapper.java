@@ -13,6 +13,5 @@ public interface SubscriptionMapper {
 
     SubscriptionDTO toDTO(Subscription subscription);
 
-    @Mapping(target = "status", ignore = true)
     Subscription toEntity(SubscriptionDTO subscriptionDTO);
 }
