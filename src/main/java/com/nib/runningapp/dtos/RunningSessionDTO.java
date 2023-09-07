@@ -11,13 +11,15 @@ import java.util.Date;
 @NoArgsConstructor
 public class RunningSessionDTO {
     private Long id;
-    private Double calories;
     private Double distance;
     private Double duration;
-    private Date endTime;
-    private Date startTime;
-    private String route;
+    private Double calories;
     private Double speed;
+    private String route;
+    private Date date;
+    private Date startTime;
+    private Date endTime;
+    private Boolean status;
     private Long userId;
     private String username;
 }

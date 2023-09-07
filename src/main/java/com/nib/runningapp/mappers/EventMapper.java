@@ -14,5 +14,6 @@ public interface EventMapper {
     EventDTO toDTO(Event event);
 
     @Mapping(target = "status", ignore = true)
+    @Mapping(target = "eventRegistrationList", ignore = true)
     Event toEntity(EventDTO eventDTO);
 }

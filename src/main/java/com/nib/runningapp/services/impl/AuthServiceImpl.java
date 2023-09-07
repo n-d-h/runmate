@@ -4,9 +4,7 @@ import com.nib.runningapp.dtos.UserDTO;
 import com.nib.runningapp.entities.User;
 import com.nib.runningapp.enums.Gender;
 import com.nib.runningapp.enums.UserRole;
-import com.nib.runningapp.exceptions.entity.EntityException;
 import com.nib.runningapp.exceptions.entity.EntityNotFoundException;
-import com.nib.runningapp.exceptions.entity.QuantityException;
 import com.nib.runningapp.mappers.UserMapper;
 import com.nib.runningapp.repositories.UserRepository;
 import com.nib.runningapp.security.jwt.JwtService;
@@ -18,7 +16,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
 

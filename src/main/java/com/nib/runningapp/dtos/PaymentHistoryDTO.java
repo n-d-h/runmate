@@ -14,7 +14,6 @@ public class PaymentHistoryDTO {
     private Double amount;
     private Long userId;
     private String username;
-    private String courseName;
     private Date paymentDate;
     private String paymentStatus;
     private Long subscriptionId;
