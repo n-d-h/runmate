@@ -34,6 +34,12 @@ public class Event {
     @Column(name = "end_time")
     private Date endTime;
 
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "image")
+    private String image;
+
     @Column(name = "`condition`", columnDefinition = "LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String condition;
 

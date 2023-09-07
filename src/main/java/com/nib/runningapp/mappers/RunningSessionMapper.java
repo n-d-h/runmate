@@ -18,7 +18,6 @@ public interface RunningSessionMapper {
     RunningSessionDTO toDTO(RunningSession runningSession);
 
     @Mapping(target = "userRunningSession", source = "userId", qualifiedByName = "mapUser")
-    @Mapping(target = "status", ignore = true)
     RunningSession toEntity(RunningSessionDTO runningSessionDTO);
 
     @Named("mapUser")

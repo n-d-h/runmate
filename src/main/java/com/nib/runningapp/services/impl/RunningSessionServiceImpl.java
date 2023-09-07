@@ -23,11 +23,12 @@ public class RunningSessionServiceImpl implements RunningSessionService {
     
     @Override
     public RunningSessionDTO createRunningSession(RunningSessionDTO runningSessionDTO) {
+        runningSessionDTO.setId(0L);
+        runningSessionDTO.setDate(new Date());
+        runningSessionDTO.setStartTime(new Date());
+        runningSessionDTO.setStatus(true);
         RunningSession runningSession = RunningSessionMapper.INSTANCE.toEntity(runningSessionDTO);
-        runningSession.setDate(new Date());
-        runningSession.setStartTime(new Date());
-        runningSession.setStatus(true);
-        
+
         RunningSession savedRunningSession = runningSessionRepository.save(runningSession);
         return RunningSessionMapper.INSTANCE.toDTO(savedRunningSession);
     }
