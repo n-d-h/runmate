@@ -22,7 +22,6 @@ public interface EventRegistrationMapper {
 
     @Mapping(target = "eventContent", source = "eventId", qualifiedByName = "mapEvent")
     @Mapping(target = "userEvent", source = "userId", qualifiedByName = "mapUser")
-    @Mapping(target = "status", ignore = true)
     EventRegistration toEntity(EventRegistrationDTO eventRegistrationDTO);
 
     @Named("mapEvent")

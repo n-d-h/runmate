@@ -10,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RunningSessionDTO {
+    private Long id;
     private Double distance;
     private Double duration;
     private Double calories;

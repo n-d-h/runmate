@@ -1,22 +1,18 @@
 package com.nib.runningapp.controllers;
 
+import com.nib.runningapp.dtos.EventDTO;
+import com.nib.runningapp.dtos.EventRegistrationDTO;
+import com.nib.runningapp.dtos.RunningSessionDTO;
+import com.nib.runningapp.services.EventRegistrationService;
+import com.nib.runningapp.services.RunningSessionService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.nib.runningapp.dtos.RunningSessionDTO;
-import com.nib.runningapp.services.RunningSessionService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Tag(name = "User API")
 @RestController
@@ -25,6 +21,7 @@ import com.nib.runningapp.services.RunningSessionService;
 public class UserController {
 
     private final RunningSessionService runningSessionService;
+    private final EventRegistrationService eventRegistrationService;
 
     // Running Session API For User
     @GetMapping("/{userId}/running-sessions")
@@ -55,5 +52,31 @@ public class UserController {
             @PathVariable("userId") Long userId, @PathVariable("runningSessionId") Long runningSessionId) {
         RunningSessionDTO deletedRunningSession = runningSessionService.deleteRunningSession(runningSessionId);
         return ResponseEntity.ok(deletedRunningSession);
+    }
+
+    // Event Registration API For User
+    @PostMapping("/{userId}/event-registrations/{eventId}")
+    public ResponseEntity<?> registerForEvent(
+            @PathVariable("userId") Long userId, @PathVariable("eventId") Long eventId) {
+        EventRegistrationDTO eventRegistrationDTO = eventRegistrationService.registerForEvent(userId, eventId);
+        if (eventRegistrationDTO == null) {
+            return ResponseEntity.badRequest().body(new HashMap<>(
+                    Map.of("message", "User already registered for this event")
+            ));
+        }
+        return ResponseEntity.ok(eventRegistrationDTO);
+    }
+
+    @GetMapping("/{userId}/event-registrations")
+    public ResponseEntity<?> getEventRegistrationsByUserId(@PathVariable("userId") Long userId) {
+        List<EventDTO> eventRegistrations = eventRegistrationService.getAllEventsRegisteredByUser(userId);
+        return ResponseEntity.ok(eventRegistrations);
+    }
+
+    @DeleteMapping("/{userId}/event-registrations/{eventId}")
+    public ResponseEntity<?> cancelRegistration(
+            @PathVariable("userId") Long userId, @PathVariable("eventId") Long eventId) {
+        EventRegistrationDTO eventRegistrationDTO = eventRegistrationService.cancelRegistration(userId, eventId);
+        return ResponseEntity.ok(eventRegistrationDTO);
     }
 }
