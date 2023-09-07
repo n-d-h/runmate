@@ -23,11 +23,6 @@ public class RunningSessionServiceImpl implements RunningSessionService {
     
     @Override
     public RunningSessionDTO createRunningSession(RunningSessionDTO runningSessionDTO) {
-        boolean isExist = runningSessionRepository.findById(runningSessionDTO.getId()).isPresent();
-
-        if (isExist) {
-            return null;
-        }
         RunningSession runningSession = RunningSessionMapper.INSTANCE.toEntity(runningSessionDTO);
         runningSession.setDate(new Date());
         runningSession.setStartTime(new Date());
@@ -38,14 +33,24 @@ public class RunningSessionServiceImpl implements RunningSessionService {
     }
 
     @Override
-    public List<RunningSessionDTO> getAllRunningSessionsByUserId(Long id) {
-        List<RunningSession> runningSessions = runningSessionRepository.findByUserId(id);
+    public List<RunningSessionDTO> getAllRunningSessionsByUserId(Long userId) {
+        List<RunningSession> runningSessions = runningSessionRepository.findByUserId(userId);
         return runningSessions.stream().map(RunningSessionMapper.INSTANCE::toDTO).collect(Collectors.toList());
     }
 
     @Override
-    public RunningSessionDTO updateRunningSession(RunningSessionDTO runningSessionDTO) {
+    public RunningSessionDTO updateRunningSession(RunningSessionDTO runningSessionDTO, Long id) {
+        RunningSession existRunningSession = runningSessionRepository.findById(id).orElse(null);
+        if(existRunningSession == null){
+            return null;
+        }
+
         RunningSession runningSession = RunningSessionMapper.INSTANCE.toEntity(runningSessionDTO);
+        runningSession.setId(id);
+        if(runningSession.getStatus() == null){
+            runningSession.setStatus(existRunningSession.getStatus());
+        }
+
         RunningSession updatedRunningSession = runningSessionRepository.save(runningSession);
         return RunningSessionMapper.INSTANCE.toDTO(updatedRunningSession);
     }

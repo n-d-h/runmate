@@ -41,11 +41,12 @@ public class UserController {
         return ResponseEntity.created(null).body(createdRunningSession);
     }
 
-    @PutMapping("/{userId}/running-sessions")
+    @PutMapping("/{userId}/running-sessions/{runningSessionId}")
     public ResponseEntity<?> updateRunningSession(
-            @RequestBody RunningSessionDTO runningSessionDTO, @PathVariable("userId") Long userId) {
+            @RequestBody RunningSessionDTO runningSessionDTO, @PathVariable("userId") Long userId,
+            @PathVariable("runningSessionId") Long runningSessionId) {
         runningSessionDTO.setUserId(userId);
-        RunningSessionDTO updatedRunningSession = runningSessionService.updateRunningSession(runningSessionDTO);
+        RunningSessionDTO updatedRunningSession = runningSessionService.updateRunningSession(runningSessionDTO, runningSessionId);
         return ResponseEntity.ok(updatedRunningSession);
     }
 

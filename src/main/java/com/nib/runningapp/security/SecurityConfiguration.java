@@ -35,10 +35,10 @@ public class SecurityConfiguration {
         http
                 .cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("api/v1/auth/**").permitAll()
-                        .requestMatchers("swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("api/v1/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/v1/**").permitAll()
+                        .anyRequest().permitAll()
                 )
 //                 .requestMatchers("/api/admin/**").hasAnyAuthority("role_admin")
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
