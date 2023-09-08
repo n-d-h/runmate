@@ -41,4 +41,5 @@ public class SubscriptionController {
         SubscriptionDTO deletedSubscriptionDTO = subscriptionService.deleteSubscription(id);
         return ResponseEntity.ok(deletedSubscriptionDTO);
     }
+
 }
