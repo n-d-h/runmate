@@ -1,6 +1,7 @@
 package com.nib.runningapp.controllers;
 
 import com.nib.runningapp.services.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ public class AuthenticationController {
 
     private final AuthService authService;
 
+    @Operation(summary = "Authenticate user")
     @PostMapping("/authenticate")
     public ResponseEntity<Map<String, String>> login(String username, String password) {
         Map<String, String> response = new HashMap<>();
@@ -26,6 +28,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "Register user")
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(String username, String password) {
         Map<String, String> response = authService.register(username, password);
