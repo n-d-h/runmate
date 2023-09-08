@@ -79,4 +79,5 @@ public class UserController {
         EventRegistrationDTO eventRegistrationDTO = eventRegistrationService.cancelRegistration(userId, eventId);
         return ResponseEntity.ok(eventRegistrationDTO);
     }
+
 }

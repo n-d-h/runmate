@@ -17,7 +17,6 @@ public interface CourseMapper {
     CourseDTO toDTO(Course course);
 
     @Mapping(target = "courseSubscription", source = "subscriptionId", qualifiedByName = "mapSubscription")
-    @Mapping(target = "status", ignore = true)
     Course toEntity(CourseDTO courseDTO);
 
     @Named("mapSubscription")
