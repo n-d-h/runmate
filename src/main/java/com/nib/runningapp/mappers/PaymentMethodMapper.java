@@ -19,7 +19,6 @@ public interface PaymentMethodMapper {
 
     @Mapping(target = "userPayment", source = "userId", qualifiedByName = "mapUser")
     @Mapping(target = "userPaymentHistoryList", ignore = true)
-    @Mapping(target = "status", ignore = true)
     PaymentMethod toEntity(PaymentMethodDTO paymentMethodDTO);
 
     @Named("mapUser")

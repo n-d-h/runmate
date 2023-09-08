@@ -1,10 +1,8 @@
 package com.nib.runningapp.controllers;
 
 import com.nib.runningapp.dtos.*;
-import com.nib.runningapp.services.EventRegistrationService;
-import com.nib.runningapp.services.FollowService;
-import com.nib.runningapp.services.PlanService;
-import com.nib.runningapp.services.RunningSessionService;
+import com.nib.runningapp.entities.PaymentHistory;
+import com.nib.runningapp.services.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +21,8 @@ public class UserController {
 
     private final RunningSessionService runningSessionService;
     private final EventRegistrationService eventRegistrationService;
+    private final PaymentMethodService paymentMethodService;
+    private final PaymentHistoryService paymentHistoryService;
     private final FollowService followService;
     private final PlanService planService;
 
@@ -138,6 +138,76 @@ public class UserController {
     public ResponseEntity<?> applyPlanForUser(@RequestBody UserPlanDTO userPlanDTO) {
         PlanDTO planDTO = planService.applyPlanForUser(userPlanDTO);
         return ResponseEntity.ok(planDTO);
+    }
+
+    // -----------------------------Payment Method For User-----------------------------
+
+    @Operation(summary = "Get all payment methods for user")
+    @GetMapping("/{userId}/payment-methods")
+    public ResponseEntity<?> getAllPaymentMethodsByUserId(@PathVariable("userId") Long userId) {
+        List<PaymentMethodDTO> paymentMethods = paymentMethodService.getAllPaymentMethodsByUserId(userId);
+        return ResponseEntity.ok(paymentMethods);
+    }
+
+    @Operation(summary = "Create payment method for user")
+    @PostMapping("/{userId}/payment-methods")
+    public ResponseEntity<?> createPaymentMethodForUser(
+            @RequestBody PaymentMethodDTO paymentMethodDTO, @PathVariable("userId") Long userId) {
+        paymentMethodDTO.setUserId(userId);
+        PaymentMethodDTO createdPaymentMethod = paymentMethodService.createPaymentMethod(paymentMethodDTO);
+        return ResponseEntity.created(null).body(createdPaymentMethod);
+    }
+
+    @Operation(summary = "Update payment method for user")
+    @PutMapping("/{userId}/payment-methods/{paymentMethodId}")
+    public ResponseEntity<?> updatePaymentMethodForUser(
+            @RequestBody PaymentMethodDTO paymentMethodDTO, @PathVariable("userId") Long userId,
+            @PathVariable("paymentMethodId") Long paymentMethodId) {
+        paymentMethodDTO.setUserId(userId);
+        PaymentMethodDTO updatedPaymentMethod = paymentMethodService.updatePaymentMethod(paymentMethodDTO, paymentMethodId);
+        return ResponseEntity.ok(updatedPaymentMethod);
+    }
+
+    @Operation(summary = "Delete payment method for user")
+    @DeleteMapping("/{userId}/payment-methods/{paymentMethodId}")
+    public ResponseEntity<?> deletePaymentMethodForUser(
+            @PathVariable("userId") Long userId, @PathVariable("paymentMethodId") Long paymentMethodId) {
+        PaymentMethodDTO deletedPaymentMethod = paymentMethodService.deletePaymentMethod(paymentMethodId);
+        return ResponseEntity.ok(deletedPaymentMethod);
+    }
+
+    // -----------------------------Payment History API For Admin-----------------------------
+
+    @Operation(summary = "Get all payment histories for user")
+    @GetMapping("/{userId}/payment-histories")
+    public ResponseEntity<?> getAllPaymentHistoryByUserId(@PathVariable("userId") Long userId) {
+        List<PaymentHistoryDTO> paymentHistories = paymentHistoryService.getPaymentHistoryByUserId(userId);
+        return ResponseEntity.ok(paymentHistories);
+    }
+
+    @Operation(summary = "Create payment history for user")
+    @PostMapping("/{userId}/payment-histories")
+    public ResponseEntity<?> createPaymentHistoryForUser(
+            @RequestBody PaymentHistoryDTO paymentHistoryDTO, @PathVariable("userId") Long userId) {
+        paymentHistoryDTO.setUserId(userId);
+        PaymentHistoryDTO createdPaymentHistory = paymentHistoryService.createPaymentHistory(paymentHistoryDTO);
+        return ResponseEntity.created(null).body(createdPaymentHistory);
+    }
+
+    @Operation(summary = "Delete payment history for user")
+    @DeleteMapping("/{userId}/payment-histories/{paymentHistoryId}")
+    public ResponseEntity<?> deletePaymentHistoryForUser(
+            @PathVariable("userId") Long userId, @PathVariable("paymentHistoryId") Long paymentHistoryId) {
+        PaymentHistoryDTO deletedPaymentHistory = paymentHistoryService.deletePaymentHistoryById(paymentHistoryId);
+        return ResponseEntity.ok(deletedPaymentHistory);
+    }
+
+    @Operation(summary = "Get payment history by id")
+    @GetMapping("/{userId}/payment-histories/{paymentHistoryId}")
+    public ResponseEntity<?> getPaymentHistoryById(
+            @PathVariable("userId") Long userId, @PathVariable("paymentHistoryId") Long paymentHistoryId) {
+        PaymentHistoryDTO paymentHistoryDTO = paymentHistoryService.getPaymentHistoryById(paymentHistoryId);
+        return ResponseEntity.ok(paymentHistoryDTO);
     }
 
 }
