@@ -4,6 +4,7 @@ import com.nib.runningapp.dtos.*;
 import com.nib.runningapp.entities.PaymentHistory;
 import com.nib.runningapp.services.*;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
+@SecurityRequirement(name = "Authorization")
 public class UserController {
 
     private final RunningSessionService runningSessionService;
