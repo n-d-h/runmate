@@ -25,14 +25,14 @@ public interface FollowMapper {
     Follow toEntity(FollowDTO followDTO);
 
     @Named("mapUserFollower")
-    default User mapUserFollower(Long id) {
+    default User mapUserFollower(String id) {
         User f = new User();
         f.setId(id);
         return f;
     }
 
     @Named("mapUserFollowing")
-    default User mapUserFollowing(Long id) {
+    default User mapUserFollowing(String id) {
         User u = new User();
         u.setId(id);
         return u;

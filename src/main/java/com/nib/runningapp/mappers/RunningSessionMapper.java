@@ -21,7 +21,7 @@ public interface RunningSessionMapper {
     RunningSession toEntity(RunningSessionDTO runningSessionDTO);
 
     @Named("mapUser")
-    default User mapUser(Long id) {
+    default User mapUser(String id) {
         User p = new User();
         p.setId(id);
         return p;

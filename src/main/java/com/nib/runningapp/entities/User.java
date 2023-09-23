@@ -20,15 +20,11 @@ import java.util.List;
 @Table(name = "tbl_user")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true, updatable = false)
-    private Long id;
+    private String id;
 
     @Column(name = "user_name", nullable = false)
     private String username;
-
-    @Column(name = "password", nullable = false)
-    private String password;
 
     @Column(name = "full_name")
     private String fullName;
@@ -95,12 +91,12 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return id;
     }
 
     @Override
     public String getPassword() {
-        return password;
+        return username;
     }
 
     @Override

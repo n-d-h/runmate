@@ -31,7 +31,7 @@ public interface PaymentHistoryMapper {
     PaymentHistory toEntity(PaymentHistoryDTO paymentHistoryDTO);
 
     @Named("mapUser")
-    default User mapUser(Long id) {
+    default User mapUser(String id) {
         User p = new User();
         p.setId(id);
         return p;

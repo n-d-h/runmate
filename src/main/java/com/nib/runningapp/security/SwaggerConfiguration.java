@@ -23,17 +23,9 @@ public class SwaggerConfiguration {
 
     @Bean
     public OpenAPI openAPI() {
-        Server devServer = new Server();
-        devServer.setUrl("localhost:80");
-        devServer.setDescription("Server URL in Development environment");
-
-        Server prodServer = new Server();
-        prodServer.setUrl("");
-        prodServer.setDescription("Server URL in Production environment");
-
         License license = new License();
         license.setName("License Apache 2.0");
-        license.setUrl("http://www.apache.org/licenses/LICENSE-2.0.html");
+        license.setUrl("https://www.apache.org/licenses/LICENSE-2.0.html");
 
         Info info = new Info()
                 .title("Running API")
@@ -42,6 +34,6 @@ public class SwaggerConfiguration {
                 .termsOfService("")
                 .license(license);
 
-        return new OpenAPI().info(info).servers(List.of(devServer, prodServer));
+        return new OpenAPI().info(info);
     }
 }

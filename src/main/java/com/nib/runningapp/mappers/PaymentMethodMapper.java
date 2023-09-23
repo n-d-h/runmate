@@ -22,7 +22,7 @@ public interface PaymentMethodMapper {
     PaymentMethod toEntity(PaymentMethodDTO paymentMethodDTO);
 
     @Named("mapUser")
-    default User mapUser(Long id) {
+    default User mapUser(String id) {
         User p = new User();
         p.setId(id);
         return p;

@@ -7,16 +7,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    private Long id;
-    private String email;
-    private String fullName;
-    private String gender;
-    private String imageUrl;
-    private String password;
-    private String phoneNumber;
-    private String progress;
-    private String role;
+    private String id;
     private String username;
-
-
+    private String fullName;
+    private String email;
+    private String gender;
+    private String phoneNumber;
+    private String imageUrl;
+    private String role;
+    private String progress;
 }
