@@ -9,9 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.nib</groupId>
-    <artifactId>running-app</artifactId>
+    <artifactId>runningapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
     <name>running-app</name>
     <description>running-app</description>
     <properties>
