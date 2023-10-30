@@ -20,18 +20,23 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api/v1/auth/**").permitAll()
-                        .anyRequest().permitAll()
-                );
-//                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                .authenticationProvider(authenticationProvider)
-//                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-//                .exceptionHandling(exception -> exception
-//                        .authenticationEntryPoint(authenticationEntryPoint)
-//                        .accessDeniedHandler((request, response, accessDeniedException) -> response.sendError(403, accessDeniedException.getMessage()))
+//        http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/api/v1/auth/**").permitAll()
+//                        .anyRequest().permitAll()
 //                );
+////                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+////                .authenticationProvider(authenticationProvider)
+////                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+////                .exceptionHandling(exception -> exception
+////                        .authenticationEntryPoint(authenticationEntryPoint)
+////                        .accessDeniedHandler((request, response, accessDeniedException) -> response.sendError(403, accessDeniedException.getMessage()))
+////                );
+//        return http.build();
+        // permit all requests
+        http.authorizeHttpRequests(
+                authorize -> authorize.anyRequest().permitAll()
+        );
         return http.build();
     }
 
