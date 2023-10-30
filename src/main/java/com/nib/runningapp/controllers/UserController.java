@@ -1,10 +1,8 @@
 package com.nib.runningapp.controllers;
 
 import com.nib.runningapp.dtos.*;
-import com.nib.runningapp.entities.PaymentHistory;
 import com.nib.runningapp.services.*;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +16,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/users")
-@SecurityRequirement(name = "Authorization")
+//@SecurityRequirement(name = "Authorization")
 public class UserController {
 
     private final RunningSessionService runningSessionService;
@@ -27,6 +25,15 @@ public class UserController {
     private final PaymentHistoryService paymentHistoryService;
     private final FollowService followService;
     private final PlanService planService;
+    private final UserService userService;
+
+    // -----------------------------User API For Admin-----------------------------
+    @Operation(summary = "Get all users")
+    @GetMapping("")
+    public ResponseEntity<?> getAllUsers() {
+        List<UserDTO> users = userService.getAllUsers();
+        return ResponseEntity.ok(users);
+    }
 
     // -----------------------------Running Session API For User-----------------------------
 

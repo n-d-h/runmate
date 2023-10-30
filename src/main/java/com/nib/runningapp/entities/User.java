@@ -4,12 +4,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.nib.runningapp.enums.Gender;
 import com.nib.runningapp.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -18,10 +17,10 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "tbl_user")
-public class User implements UserDetails {
+public class User {
     @Id
-    @Column(name = "id", nullable = false, unique = true, updatable = false)
-    private String id;
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     @Column(name = "user_name", nullable = false)
     private String username;
@@ -83,39 +82,4 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "userRunningSession", fetch = FetchType.LAZY)
     @JsonBackReference
     private List<RunningSession> userRunningSessionList;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
-    }
-
-    @Override
-    public String getUsername() {
-        return id;
-    }
-
-    @Override
-    public String getPassword() {
-        return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 }

@@ -32,7 +32,7 @@ public interface EventRegistrationMapper {
     }
 
     @Named("mapUser")
-    default User mapUser(String id) {
+    default User mapUser(Long id) {
         User u = new User();
         u.setId(id);
         return u;

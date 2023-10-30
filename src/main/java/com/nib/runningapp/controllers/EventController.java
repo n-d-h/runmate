@@ -3,7 +3,6 @@ package com.nib.runningapp.controllers;
 import com.nib.runningapp.dtos.EventDTO;
 import com.nib.runningapp.services.EventService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/events")
-@SecurityRequirement(name = "Authorization")
+//@SecurityRequirement(name = "Authorization")
 public class EventController {
 
     private final EventService eventService;

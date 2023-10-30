@@ -13,12 +13,12 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 @Configuration
-@SecurityScheme(
-        name = "Authorization",
-        scheme = "Bearer",
-        type = SecuritySchemeType.HTTP,
-        in = SecuritySchemeIn.HEADER
-)
+//@SecurityScheme(
+//        name = "Authorization",
+//        scheme = "Bearer",
+//        type = SecuritySchemeType.HTTP,
+//        in = SecuritySchemeIn.HEADER
+//)
 public class SwaggerConfiguration {
 
     @Bean

@@ -1,11 +1,8 @@
 package com.nib.runningapp.controllers;
 
 import com.nib.runningapp.dtos.CourseDTO;
-import com.nib.runningapp.entities.Course;
 import com.nib.runningapp.services.CourseService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/courses")
-@SecurityRequirement(name = "Authorization")
+//@SecurityRequirement(name = "Authorization")
 public class CourseController {
 
     private final CourseService courseService;
