@@ -26,7 +26,7 @@ public interface UserPlanMapper {
     UserPlan toEntity(UserPlanDTO userPlanDTO);
 
     @Named("mapUser")
-    default User mapUser(String id) {
+    default User mapUser(Long id) {
         User u = new User();
         u.setId(id);
         return u;

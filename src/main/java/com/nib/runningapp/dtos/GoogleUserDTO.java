@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class GoogleUserDTO {
     private String displayName;
     private String email;
-    private String id;
+    private Long id;
     private String photoUrl;
 }
