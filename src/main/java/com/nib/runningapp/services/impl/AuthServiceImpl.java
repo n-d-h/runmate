@@ -7,22 +7,15 @@ import com.nib.runningapp.enums.Gender;
 import com.nib.runningapp.enums.UserRole;
 import com.nib.runningapp.mappers.UserMapper;
 import com.nib.runningapp.repositories.UserRepository;
-import com.nib.runningapp.security.jwt.JwtService;
 import com.nib.runningapp.services.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
-//    private final PasswordEncoder passwordEncoder;
-    private final JwtService jwtService;
-//    private final AuthenticationManager authenticationManager;
 
     @Override
     public UserDTO authenticate(GoogleUserDTO googleUserDTO) {
@@ -49,49 +42,10 @@ public class AuthServiceImpl implements AuthService {
             User newUser = userRepository.save(user);
             UserDTO newUserDTO = UserMapper.INSTANCE.toDTO(newUser);
 
-//            var roleName = newUser.getRole().name();
-//            return jwtService.generateToken(Map.of("role", roleName), newUser);
             return newUserDTO;
         }
         else {
-//            var roleName = account.get().getRole().name();
-//            return jwtService.generateToken(Map.of("role", roleName), account.get());
             return UserMapper.INSTANCE.toDTO(account.get());
         }
-    }
-
-    @Override
-    public Map<String, String> register(String username, String password) {
-
-//        Map<String, String> response = new HashMap<>();
-//
-//        if (userRepository.findByUsername(username).isPresent()) {
-//            response.put("message", "Username already exists");
-//            response.put("status", String.valueOf(HttpStatus.BAD_REQUEST));
-//            return response;
-//        }
-//
-//        UserDTO userDTO = new UserDTO();
-//        userDTO.setId(0L);
-//        userDTO.setEmail(null);
-//        userDTO.setFullName(null);
-//        userDTO.setGender(String.valueOf(Gender.MALE));
-//        userDTO.setImageUrl(null);
-//        userDTO.setUsername(username);
-//        userDTO.setPassword(passwordEncoder.encode(password));
-//        userDTO.setPhoneNumber(null);
-//        userDTO.setProgress(null);
-//        userDTO.setRole(String.valueOf(UserRole.MEMBER));
-//
-//        User user = UserMapper.INSTANCE.toEntity(userDTO);
-//        user.setId(null);
-//        user.setStatus(true);
-//        userRepository.save(user);
-//
-//
-//        response.put("username", username);
-//        response.put("password", password);
-//        return response;
-        throw new NotImplementedException("Not implemented yet");
     }
 }
