@@ -26,6 +26,7 @@ public class UserController {
     private final FollowService followService;
     private final PlanService planService;
     private final UserService userService;
+    private final UserSubscriptionService userSubscriptionService;
 
     // -----------------------------User API For Admin-----------------------------
     @Operation(summary = "Get all users")
@@ -217,6 +218,24 @@ public class UserController {
             @PathVariable("userId") Long userId, @PathVariable("paymentHistoryId") Long paymentHistoryId) {
         PaymentHistoryDTO paymentHistoryDTO = paymentHistoryService.getPaymentHistoryById(paymentHistoryId);
         return ResponseEntity.ok(paymentHistoryDTO);
+    }
+
+    // -----------------------------User Subscription API For Admin-----------------------------
+
+    @Operation(summary = "Create subscription for user")
+    @PostMapping("/{userId}/subscriptions")
+    public ResponseEntity<?> createSubscriptionForUser(
+            @RequestBody UserSubscriptionDTO userSubscriptionDTO) {
+        UserSubscriptionDTO createdUserSubscription = userSubscriptionService.createSubscription(userSubscriptionDTO);
+        return ResponseEntity.created(null).body(createdUserSubscription);
+    }
+
+    @Operation(summary = "Update subscription for user")
+    @PutMapping("/{userId}/subscriptions")
+    public ResponseEntity<?> updateSubscriptionForUser(
+            @RequestBody UserSubscriptionDTO userSubscriptionDTO) {
+        UserSubscriptionDTO update = userSubscriptionService.updateSubscription(userSubscriptionDTO);
+        return ResponseEntity.created(null).body(update);
     }
 
 }

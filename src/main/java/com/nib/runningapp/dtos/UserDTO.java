@@ -3,6 +3,7 @@ package com.nib.runningapp.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +17,13 @@ public class UserDTO {
     private String imageUrl;
     private String role;
     private String progress;
+
+    // added
+    private Boolean isSubscribed;
+    private UserSubscriptionDTO userActiveSubscription;
+    private SubscriptionDTO activeSubscription;
+
+    private Boolean wasSubscribed;
+    private UserSubscriptionDTO userNearestPrevSubscription;
+    private SubscriptionDTO prevSubscription;
 }

@@ -20,32 +20,36 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDTO authenticate(GoogleUserDTO googleUserDTO) {
         var account = userRepository.findByUsernameAndStatus(String.valueOf(googleUserDTO.getId()), true);
-        if (!account.isPresent()) {
+        if (account.isEmpty()) {
             String username = "";
             if (googleUserDTO.getEmail().contains("@")) {
                 username = googleUserDTO.getEmail().substring(0, googleUserDTO.getEmail().indexOf("@"));
             } else username = googleUserDTO.getEmail();
 
-            UserDTO userDTO = new UserDTO();
-            userDTO.setId(googleUserDTO.getId());
-            userDTO.setEmail(googleUserDTO.getEmail());
-            userDTO.setFullName(googleUserDTO.getDisplayName());
-            userDTO.setGender(String.valueOf(Gender.MALE));
-            userDTO.setImageUrl(googleUserDTO.getPhotoUrl());
-            userDTO.setUsername(username);
-            userDTO.setPhoneNumber(null);
-            userDTO.setProgress(null);
-            userDTO.setRole(String.valueOf(UserRole.MEMBER));
+            UserDTO userDTO = getUserDTO(googleUserDTO, username);
 
             User user = UserMapper.INSTANCE.toEntity(userDTO);
             user.setStatus(true);
             User newUser = userRepository.save(user);
-            UserDTO newUserDTO = UserMapper.INSTANCE.toDTO(newUser);
 
-            return newUserDTO;
+            return UserMapper.INSTANCE.toDTO(newUser);
         }
         else {
             return UserMapper.INSTANCE.toDTO(account.get());
         }
+    }
+
+    private static UserDTO getUserDTO(GoogleUserDTO googleUserDTO, String username) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(googleUserDTO.getId());
+        userDTO.setEmail(googleUserDTO.getEmail());
+        userDTO.setFullName(googleUserDTO.getDisplayName());
+        userDTO.setGender(String.valueOf(Gender.MALE));
+        userDTO.setImageUrl(googleUserDTO.getPhotoUrl());
+        userDTO.setUsername(username);
+        userDTO.setPhoneNumber(null);
+        userDTO.setProgress(null);
+        userDTO.setRole(String.valueOf(UserRole.MEMBER));
+        return userDTO;
     }
 }
