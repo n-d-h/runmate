@@ -32,7 +32,6 @@ public class AuthenticationController {
 //    @Operation(summary = "Authenticate user")
 //    @PostMapping("/test")
 //    public ResponseEntity<?> test(String token) {
-////        String token = request.getHeader("Authorization");
 //        GoogleUserDTO googleUserDTO = jwtService.parseJwtToken(token);
 //        return ResponseEntity.ok(authService.authenticate(googleUserDTO));
 //    }
