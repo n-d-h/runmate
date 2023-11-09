@@ -29,6 +29,14 @@ public class AuthenticationController {
         return ResponseEntity.ok(authService.authenticate(googleUserDTO));
     }
 
+//    @Operation(summary = "Authenticate user")
+//    @PostMapping("/test")
+//    public ResponseEntity<?> test(String token) {
+////        String token = request.getHeader("Authorization");
+//        GoogleUserDTO googleUserDTO = jwtService.parseJwtToken(token);
+//        return ResponseEntity.ok(authService.authenticate(googleUserDTO));
+//    }
+
 //    @Operation(summary = "Register user")
 //    @PostMapping("/register")
 //    public ResponseEntity<Map<String, String>> register(String username, String password) {

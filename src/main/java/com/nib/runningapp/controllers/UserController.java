@@ -223,19 +223,21 @@ public class UserController {
     // -----------------------------User Subscription API For Admin-----------------------------
 
     @Operation(summary = "Create subscription for user")
-    @PostMapping("/{userId}/subscriptions")
+    @PostMapping("/subscriptions")
     public ResponseEntity<?> createSubscriptionForUser(
-            @RequestBody UserSubscriptionDTO userSubscriptionDTO) {
-        UserSubscriptionDTO createdUserSubscription = userSubscriptionService.createSubscription(userSubscriptionDTO);
+            @RequestBody UserSubscriptionCreateDTO dto) {
+        UserSubscriptionDTO createdUserSubscription = userSubscriptionService.createSubscription(dto);
         return ResponseEntity.created(null).body(createdUserSubscription);
     }
 
-    @Operation(summary = "Update subscription for user")
-    @PutMapping("/{userId}/subscriptions")
-    public ResponseEntity<?> updateSubscriptionForUser(
-            @RequestBody UserSubscriptionDTO userSubscriptionDTO) {
-        UserSubscriptionDTO update = userSubscriptionService.updateSubscription(userSubscriptionDTO);
-        return ResponseEntity.created(null).body(update);
-    }
+//    @Operation(summary = "Update subscription for user")
+//    @PutMapping("/{userId}/subscriptions")
+//    public ResponseEntity<?> updateSubscriptionForUser(
+//            @PathVariable("userId") Long userId,
+//            @RequestBody UserSubscriptionCreateDTO dto) {
+//        dto.setUserId(userId);
+//        UserSubscriptionDTO update = userSubscriptionService.updateSubscription(dto);
+//        return ResponseEntity.created(null).body(update);
+//    }
 
 }

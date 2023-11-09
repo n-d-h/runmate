@@ -39,6 +39,16 @@ public interface UserMapper {
 
     @AfterMapping
     default void afterMapping(@MappingTarget UserDTO userDTO, User user) {
+        if (user == null || user.getUserSubscriptionList() == null || user.getUserSubscriptionList().isEmpty()) {
+            userDTO.setIsSubscribed(false);
+            userDTO.setWasSubscribed(false);
+            userDTO.setUserActiveSubscription(null);
+            userDTO.setActiveSubscription(null);
+            userDTO.setUserNearestPrevSubscription(null);
+            userDTO.setPrevSubscription(null);
+            return;
+        }
+
         userDTO.setWasSubscribed(!user.getUserSubscriptionList().isEmpty());
 
         // get active subscription
