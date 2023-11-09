@@ -3,7 +3,6 @@ package com.nib.runningapp.services.impl;
 import com.nib.runningapp.dtos.GoogleUserDTO;
 import com.nib.runningapp.dtos.UserDTO;
 import com.nib.runningapp.entities.User;
-import com.nib.runningapp.enums.Gender;
 import com.nib.runningapp.enums.UserRole;
 import com.nib.runningapp.mappers.UserMapper;
 import com.nib.runningapp.repositories.UserRepository;
@@ -44,7 +43,7 @@ public class AuthServiceImpl implements AuthService {
         userDTO.setId(googleUserDTO.getId());
         userDTO.setEmail(googleUserDTO.getEmail());
         userDTO.setFullName(googleUserDTO.getDisplayName());
-        userDTO.setGender(String.valueOf(Gender.MALE));
+        userDTO.setGender(null);
         userDTO.setImageUrl(googleUserDTO.getPhotoUrl());
         userDTO.setUsername(username);
         userDTO.setPhoneNumber(null);
