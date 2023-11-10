@@ -18,7 +18,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public UserDTO authenticate(GoogleUserDTO googleUserDTO) {
-        var account = userRepository.findByUsernameAndStatus(String.valueOf(googleUserDTO.getId()), true);
+        var account = userRepository.findByEmailAndStatus(String.valueOf(googleUserDTO.getEmail()), true);
         if (account.isEmpty()) {
             String username = "";
             if (googleUserDTO.getEmail().contains("@")) {
@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
 
     private static UserDTO getUserDTO(GoogleUserDTO googleUserDTO, String username) {
         UserDTO userDTO = new UserDTO();
-        userDTO.setId(googleUserDTO.getId());
+        userDTO.setId(null);
         userDTO.setEmail(googleUserDTO.getEmail());
         userDTO.setFullName(googleUserDTO.getDisplayName());
         userDTO.setGender(null);
