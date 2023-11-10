@@ -19,7 +19,8 @@ import java.util.List;
 @Table(name = "tbl_user")
 public class User {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
     private Long id;
 
     @Column(name = "user_name", nullable = false)
