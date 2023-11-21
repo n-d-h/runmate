@@ -1,5 +1,6 @@
 package com.nib.runningapp.services.impl;
 
+import com.nib.runningapp.dtos.AuthenticationRequestDTO;
 import com.nib.runningapp.dtos.GoogleUserDTO;
 import com.nib.runningapp.dtos.UserDTO;
 import com.nib.runningapp.entities.User;
@@ -32,8 +33,21 @@ public class AuthServiceImpl implements AuthService {
             User newUser = userRepository.save(user);
 
             return UserMapper.INSTANCE.toDTO(newUser);
+        } else {
+            return UserMapper.INSTANCE.toDTO(account.get());
         }
-        else {
+    }
+
+    @Override
+    public UserDTO authenticateWithUserName(AuthenticationRequestDTO requestDTO) {
+        var account = userRepository
+                .findByUsernameAndPasswordAndStatus(
+                        requestDTO.getUsername(),
+                        requestDTO.getPassword(),
+                        true);
+        if (account.isEmpty()) {
+            return null;
+        } else {
             return UserMapper.INSTANCE.toDTO(account.get());
         }
     }

@@ -1,6 +1,8 @@
 package com.nib.runningapp.controllers;
 
+import com.nib.runningapp.dtos.AuthenticationRequestDTO;
 import com.nib.runningapp.dtos.GoogleUserDTO;
+import com.nib.runningapp.dtos.UserDTO;
 import com.nib.runningapp.security.jwt.JwtService;
 import com.nib.runningapp.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,6 +29,16 @@ public class AuthenticationController {
         String token = request.getHeader("Authorization");
         GoogleUserDTO googleUserDTO = jwtService.parseJwtToken(token);
         return ResponseEntity.ok(authService.authenticate(googleUserDTO));
+    }
+
+    @Operation(summary = "Authenticate user with username and password")
+    @PostMapping("/authenticate-2")
+    public ResponseEntity<?> authenticationWithUsername(AuthenticationRequestDTO request) {
+        UserDTO user = authService.authenticateWithUserName(request);
+        if(user == null) {
+            return ResponseEntity.badRequest().body("Invalid username or password");
+        }
+        return ResponseEntity.ok(user);
     }
 
     @Operation(summary = "Authenticate user")
