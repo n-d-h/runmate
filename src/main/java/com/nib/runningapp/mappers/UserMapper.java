@@ -1,8 +1,10 @@
 package com.nib.runningapp.mappers;
 
+import com.nib.runningapp.dtos.UserCreateDTO;
 import com.nib.runningapp.dtos.UserDTO;
 import com.nib.runningapp.entities.User;
 import com.nib.runningapp.entities.UserSubscription;
+import com.nib.runningapp.enums.UserRole;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -36,6 +38,20 @@ public interface UserMapper {
     @Mapping(target = "userRunningSessionList", ignore = true)
     @Mapping(target = "status", ignore = true)
     User toEntity(UserDTO userDTO);
+
+    @Mapping(target = "userFollowingList", ignore = true)
+    @Mapping(target = "userFollowerList", ignore = true)
+    @Mapping(target = "userPlanList", ignore = true)
+    @Mapping(target = "userSubscriptionList", ignore = true)
+    @Mapping(target = "userPaymentMethodList", ignore = true)
+    @Mapping(target = "userPaymentHistoryList", ignore = true)
+    @Mapping(target = "userCourseList", ignore = true)
+    @Mapping(target = "userRunningSessionList", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "gender", ignore = true)
+    User createToEntity(UserCreateDTO userDTO);
 
     @AfterMapping
     default void afterMapping(@MappingTarget UserDTO userDTO, User user) {
@@ -94,5 +110,9 @@ public interface UserMapper {
             userDTO.setPrevSubscription(null);
         }
 
+    }
+
+    default UserRole mapRole(String role) {
+        return UserRole.valueOf(role);
     }
 }
