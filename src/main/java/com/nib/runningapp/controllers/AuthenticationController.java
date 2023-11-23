@@ -2,9 +2,12 @@ package com.nib.runningapp.controllers;
 
 import com.nib.runningapp.dtos.AuthenticationRequestDTO;
 import com.nib.runningapp.dtos.GoogleUserDTO;
+import com.nib.runningapp.dtos.UserCreateDTO;
 import com.nib.runningapp.dtos.UserDTO;
+import com.nib.runningapp.repositories.UserRepository;
 import com.nib.runningapp.security.jwt.JwtService;
 import com.nib.runningapp.services.AuthService;
+import com.nib.runningapp.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +25,8 @@ public class AuthenticationController {
 
     private final AuthService authService;
     private final JwtService jwtService;
+    private final UserRepository userRepository;
+    private  final UserService userService;
 
     @Operation(summary = "Authenticate user")
     @PostMapping("/authenticate")
@@ -39,6 +44,16 @@ public class AuthenticationController {
             return ResponseEntity.badRequest().body("Invalid username or password");
         }
         return ResponseEntity.ok(user);
+    }
+
+    @Operation(summary = "Register user")
+    @PostMapping("/register")
+    public ResponseEntity<?> register(UserCreateDTO request) {
+        Boolean status = userService.createUser(request);
+        if(!status) {
+            return ResponseEntity.badRequest().body("Some filed is invalid");
+        }
+        return ResponseEntity.ok("Create user successfully");
     }
 
     @Operation(summary = "Authenticate user")
