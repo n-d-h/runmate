@@ -50,18 +50,18 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<?> register(UserCreateDTO request) {
         Boolean status = userService.createUser(request);
-        if(!status) {
+        if(Boolean.FALSE.equals(status)) {
             return ResponseEntity.badRequest().body("Some filed is invalid");
         }
         return ResponseEntity.ok("Create user successfully");
     }
 
-    @Operation(summary = "Authenticate user")
-    @PostMapping("/test")
-    public ResponseEntity<?> test(String token) {
-        GoogleUserDTO googleUserDTO = jwtService.parseJwtToken(token);
-        return ResponseEntity.ok(authService.authenticate(googleUserDTO));
-    }
+//    @Operation(summary = "Authenticate user")
+//    @PostMapping("/test")
+//    public ResponseEntity<?> test(String token) {
+//        GoogleUserDTO googleUserDTO = jwtService.parseJwtToken(token);
+//        return ResponseEntity.ok(authService.authenticate(googleUserDTO));
+//    }
 
 //    @Operation(summary = "Register user")
 //    @PostMapping("/register")

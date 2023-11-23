@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
         user.setStatus(true);
         user.setGender(Gender.valueOf(userDTO.getGender().toUpperCase()));
         User newUser = userRepository.save(user);
-        if (newUser != null) {
+        if (newUser.getId() != null) {
             return true;
         }
         return null;
